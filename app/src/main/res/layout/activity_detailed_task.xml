@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.blisek.todo_list.new_task.activity.DetailedTaskActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/detailed_task_root_layout_margin"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/detailed_task_form_description"
+        android:textStyle="italic"
+        />
+
+    <EditText
+        android:id="@+id/title_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/detailed_task_field_margin"
+        android:hint="@string/detailed_task_title_field_hint"
+        />
+
+    <EditText
+        android:id="@+id/task_description_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/detailed_task_field_margin"
+        android:lines="2"
+        android:hint="@string/detailed_task_description_field_hint"
+        android:gravity="bottom"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/detailed_task_field_margin"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/end_date_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_date_range_white_24dp"
+            />
+
+        <EditText
+            android:id="@+id/end_date_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date YYYY-MM-DD"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/detailed_task_save_btn"
+        android:layout_marginTop="@dimen/detailed_task_field_margin"
+        android:layout_marginBottom="@dimen/detailed_task_button_margin_bottom"
+        android:layout_marginLeft="@dimen/detailed_task_button_margin_left"
+        android:layout_marginRight="@dimen/detailed_task_button_margin_right"
+        />
+
+    <Button
+        android:id="@+id/edit_bnt"
+        android:enabled="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/detailed_task_edit_btn"
+        android:layout_marginTop="@dimen/detailed_task_button_margin_top"
+        android:layout_marginBottom="@dimen/detailed_task_button_margin_bottom"
+        android:layout_marginLeft="@dimen/detailed_task_button_margin_left"
+        android:layout_marginRight="@dimen/detailed_task_button_margin_right"
+        />
+
+    <Button
+        android:id="@+id/delete_bnt"
+        android:enabled="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/detailed_task_delete_btn"
+        android:layout_marginTop="@dimen/detailed_task_button_margin_top"
+        android:layout_marginBottom="@dimen/detailed_task_button_margin_bottom"
+        android:layout_marginLeft="@dimen/detailed_task_button_margin_left"
+        android:layout_marginRight="@dimen/detailed_task_button_margin_right"
+        />
+</LinearLayout>
