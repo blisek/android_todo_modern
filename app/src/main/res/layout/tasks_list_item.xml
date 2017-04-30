@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:padding="@dimen/tasks_list_item_padding"
+    android:orientation="horizontal"
     android:elevation="2dp"
     >
 
@@ -11,16 +12,15 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:padding="10dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_margin="5dp"
         >
 
         <TextView
             android:id="@+id/task_item_date_day_month_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:text="28.03"
             />
 
@@ -28,6 +28,7 @@
             android:id="@+id/task_item_date_year_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:text="2017"
             />
 
@@ -38,10 +39,10 @@
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="@android:color/darker_gray"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_toRightOf="@id/task_item_date_layout"
         />
 
@@ -49,13 +50,9 @@
         android:id="@+id/task_item_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:gravity="center_vertical"
-        android:padding="10dp"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        android:layout_toRightOf="@id/task_item_separator"
+        android:layout_margin="5dp"
         />
 
-</RelativeLayout>
+</LinearLayout>

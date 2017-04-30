@@ -1,6 +1,7 @@
 package com.blisek.todo_list.new_task.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -12,8 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.blisek.todo_list.R;
-import com.blisek.todo_list.new_task.constants.DetailedTaskActivityConstants;
+import com.blisek.todo_list.new_task.helpers.DetailedTaskActivityConstants;
 import com.blisek.todo_list.persistence.model.Task;
+import com.blisek.todo_list.tasks.helpers.TasksActivityConstants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,6 +60,8 @@ public class DetailedTaskActivity extends AppCompatActivity {
     private SimpleDateFormat dateFormatter;
     private DatePickerDialog datePickerDialog;
     private Task task;
+    private boolean created, edited;
+    private int taskId;
 
     // endregion
 
@@ -91,6 +95,8 @@ public class DetailedTaskActivity extends AppCompatActivity {
         if(task == null)
             return;
 
+        taskId = extras.getInt(DetailedTaskActivityConstants.TASK_ID_PARAM);
+
         this.task = task;
         titleField.setText(task.title);
         descriptionField.setText(task.description);
@@ -117,8 +123,10 @@ public class DetailedTaskActivity extends AppCompatActivity {
     {
         setFocusOnSaveButton();
         // TODO: verificate description
-        if(task == null)
+        if(task == null) {
             task = new Task();
+            created = true;
+        }
 
         if (!setTaskEndDate(task)) return;
         if (!setDescription(task)) return;
@@ -128,6 +136,12 @@ public class DetailedTaskActivity extends AppCompatActivity {
         try {
             task.save();
             enableControls();
+
+            if(created)
+                returnCreatedTask();
+            else
+                returnEditedTask();
+
         }
         catch (Exception ex) {
             Log.e(TAG, "While saving object.", ex);
@@ -136,6 +150,7 @@ public class DetailedTaskActivity extends AppCompatActivity {
 
     @OnClick(R.id.edit_bnt)
     public void onEditBtnClick(View view) {
+        edited = true;
         enableControls();
     }
 
@@ -143,6 +158,7 @@ public class DetailedTaskActivity extends AppCompatActivity {
     public void onDeleteBtnClick(View view) {
         task.delete();
         deleteButton.setEnabled(false);
+        returnDeletedTask();
     }
 
     // endregion -----------------------------------------------------------------------------------
@@ -163,7 +179,7 @@ public class DetailedTaskActivity extends AppCompatActivity {
 
     private boolean setDescription(Task task) {
         CharSequence descriptionCS = descriptionField.getText();
-        if(descriptionCS.length() < 0) {
+        if(descriptionCS.length() <= 0) {
             descriptionField.setError(getString(R.string.detailed_task_description_field_hint));
             return false;
         }
@@ -244,6 +260,28 @@ public class DetailedTaskActivity extends AppCompatActivity {
         datePickerDialog = new DatePickerDialog(this, R.style.Theme_AppCompat_Light_Dialog,
                 onDateSetListener, creationDateCalendar.get(Calendar.YEAR), creationDateCalendar.get(Calendar.MONTH),
                 creationDateCalendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private void returnCreatedTask() {
+        returnTask(TasksActivityConstants.RESULT_CREATED);
+    }
+
+    private void returnEditedTask() {
+        returnTask(TasksActivityConstants.RESULT_EDITED);
+    }
+
+    private void returnDeletedTask() {
+        returnTask(TasksActivityConstants.RESULT_DELETED);
+    }
+
+    private void returnTask(int resultCode) {
+        Bundle retData = new Bundle();
+        retData.putSerializable(DetailedTaskActivityConstants.EXTRA_TASK_PARAM, task);
+        retData.putInt(DetailedTaskActivityConstants.TASK_ID_PARAM, taskId);
+        Intent retIntent = new Intent();
+        retIntent.putExtras(retData);
+        setResult(resultCode, retIntent);
+        finish();
     }
 
     // endregion

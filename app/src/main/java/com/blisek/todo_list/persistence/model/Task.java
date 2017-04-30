@@ -3,9 +3,11 @@ package com.blisek.todo_list.persistence.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by bartek on 4/21/17.
@@ -46,5 +48,12 @@ public class Task extends Model implements Serializable {
         this.description = description;
         this.creationDate = creationDate;
         this.endDate = endDate;
+    }
+
+    public static List<Task> getTasksOrderedAscendingByEndDate() {
+        return new Select()
+                .from(Task.class)
+                .orderBy(COLUMN_END_DATE)
+                .execute();
     }
 }
